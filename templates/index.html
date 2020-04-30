@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>BLog App</title>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+</head>
+<body style="background-color:#4DB6AC;">
+<nav class="navbar navbar-light" style="background-color:#FF0033;">
+    <a class="navbar-brand" href="#"
+       style="background-color:#FFCC33;color:#000000;border-width:10px;border-color:#FFCC33;border-style:solid;border-spacing:30px;border-radius: 5px;">Blog
+        App</a>
+    <a class="navbar-link btn-lg" href="{% url 'index' %}" style="background-color:#FFCC33;color:#000000;">Blog</a>
+    <a class='navbar-link btn-lg' href="{% url 'admin:index' %}"
+       style="background-color:#FFCC33;color:#000000;">Admin</a>
+    <a class="navbar-link btn-lg" href="{% url 'upload-post' %}" style="background-color:#FFCC33;color:#000000;">New
+        post</a>
+</nav>
+<br>
+{% block content %}
+<div class="card-columns">
+    {% for post in object_list %}
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{ post.photo.url }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+
+            <div class="card-footer bg-transparent border-dark">
+                <p class="card-title">{{post.author}}</p>
+                <p class="card-text">{{ post.created_on }}</p>
+                <center>
+                    <a class="btn btn-warning" href="/{{post.slug}}" >View</a>
+                    <a class="btn btn-warning" href="/update/{{post.slug}}" >edit</a>
+                    <a class="btn btn-danger" href="/delete/{{post.slug}}">delete</a>
+                </center>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+</body>
+</html>
